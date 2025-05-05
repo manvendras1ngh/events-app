@@ -13,7 +13,7 @@ const Details = () => {
 
   useEffect(() => {
     const fetchEvent = async () => {
-      const url = `http://localhost:5175/api/event/${id}`;
+      const url = `https://meezy-api.vercel.app/api/event/${id}`;
       try {
         const res = await axios.get(url);
         setEventIdDetails(res.data.data);

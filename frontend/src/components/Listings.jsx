@@ -15,7 +15,7 @@ const Listings = () => {
 
   useEffect(() => {
     const fetchAllEvents = async () => {
-      const url = "http://localhost:5175/api/event";
+      const url = "https://meezy-api.vercel.app/api/event";
       try {
         const res = await axios(url);
         setEventData(res.data.data);
