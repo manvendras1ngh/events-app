@@ -31,11 +31,7 @@ const Details = () => {
   }, []);
 
   if (eventDetailsLoading || !eventIdDetails) {
-    return (
-      <>
-        <Spin size="large" fullscreen />
-      </>
-    );
+    return <Spin size="large" fullscreen />;
   }
 
   const {
@@ -132,9 +128,9 @@ const Details = () => {
               Speakers: ({eventSpeakers.length})
             </h2>
 
-            <div className="my-8">
+            <div className="my-8 grid-cols-3 grid gap-4">
               {eventSpeakers.map((speaker) => (
-                <div className="bg-zinc-100 rounded-lg p-2 mr-6 flex flex-col justify-items-center">
+                <div className="bg-zinc-100 rounded-lg p-2 flex flex-col items-center justify-center">
                   <UserRound />
                   <p className="pt-2 font-semibold">{speaker}</p>
                 </div>
