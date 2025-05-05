@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Spin } from "antd";
 
 import { Clock, MapPin, IndianRupee, UserRound } from "lucide-react";
 
@@ -8,6 +9,7 @@ import Navbar from "./Navbar";
 
 const Details = () => {
   const [eventIdDetails, setEventIdDetails] = useState(null);
+  const [eventDetailsLoading, setEventDetailsLoading] = useState(false);
 
   const { id } = useParams();
 
@@ -15,23 +17,30 @@ const Details = () => {
     const fetchEvent = async () => {
       const url = `https://meezy-api.vercel.app/api/event/${id}`;
       try {
+        setEventDetailsLoading(true);
         const res = await axios.get(url);
         setEventIdDetails(res.data.data);
       } catch (error) {
         console.log("Error getting details", error);
+        setEventDetailsLoading(false);
         throw error;
+      } finally {
+        setEventDetailsLoading(false);
       }
     };
     fetchEvent();
-  }, [id]);
+  }, []);
 
-  if (!eventIdDetails) {
-    return <p>Event details not found!</p>;
+  if (eventDetailsLoading || !eventIdDetails) {
+    return (
+      <>
+        <Spin size="large" fullscreen />
+      </>
+    );
   }
 
   const {
     eventTopic,
-    eventType,
     eventTimings,
     eventTags,
     eventSpeakers,
@@ -109,14 +118,14 @@ const Details = () => {
                 </p>
               </div>
             </div>
-            <p className="flex items-center gap-4">
+            <div className="flex items-center gap-4">
               <MapPin />
               <p>{eventVenueAndAddress}</p>
-            </p>
-            <p className="flex items-center gap-4">
+            </div>
+            <div className="flex items-center gap-4">
               <IndianRupee />
               <p>{eventEntryPrice || "NA"}</p>
-            </p>
+            </div>
           </div>
 
           <div className="my-8">
