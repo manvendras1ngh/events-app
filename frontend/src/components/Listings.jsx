@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Select, Card } from "antd";
+import { Select, Card, Spin } from "antd";
 import Navbar from "./Navbar";
 
 const { Meta } = Card;
@@ -24,7 +24,7 @@ const Listings = () => {
       }
     };
     fetchAllEvents();
-  }, []);
+  }, [eventData]);
 
   const renderEventCard = (data) => (
     <Card
@@ -86,22 +86,26 @@ const Listings = () => {
       </div>
 
       <div className="grid gap-5 grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 items-start my-8">
-        {eventData
-          ? eventData
-              .filter((event) =>
-                searchValue
-                  ? event.eventTopic
-                      .toLowerCase()
-                      .includes(searchValue.toLowerCase()) ||
-                    event.eventTags.some((tag) =>
-                      tag.toLowerCase().includes(searchValue.toLowerCase())
-                    )
-                  : eventType
-                  ? event.eventType.includes(eventType)
-                  : true
-              )
-              .map((event) => renderEventCard(event))
-          : "No data to display!"}
+        {eventData ? (
+          eventData
+            .filter((event) =>
+              searchValue
+                ? event.eventTopic
+                    .toLowerCase()
+                    .includes(searchValue.toLowerCase()) ||
+                  event.eventTags.some((tag) =>
+                    tag.toLowerCase().includes(searchValue.toLowerCase())
+                  )
+                : eventType
+                ? event.eventType.includes(eventType)
+                : true
+            )
+            .map((event) => renderEventCard(event))
+        ) : (
+          <div className="col-span-full justify-self-center">
+            <Spin size="large" />
+          </div>
+        )}
       </div>
     </section>
   );
