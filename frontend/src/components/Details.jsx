@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Spin } from "antd";
-
 import { Clock, MapPin, IndianRupee, UserRound } from "lucide-react";
 
 import Navbar from "./Navbar";
@@ -135,7 +134,7 @@ const Details = () => {
 
             <div className="my-8">
               {eventSpeakers.map((speaker) => (
-                <div className="bg-zinc-100 rounded-lg p-2 mr-6 inline-block flex flex-col justify-items-center">
+                <div className="bg-zinc-100 rounded-lg p-2 mr-6 flex flex-col justify-items-center">
                   <UserRound />
                   <p className="pt-2 font-semibold">{speaker}</p>
                 </div>
