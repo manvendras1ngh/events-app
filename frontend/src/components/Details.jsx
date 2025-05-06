@@ -28,7 +28,7 @@ const Details = () => {
       }
     };
     fetchEvent();
-  }, [id, eventIdDetails]);
+  }, [id]);
 
   if (eventDetailsLoading || !eventIdDetails) {
     return <Spin size="large" fullscreen />;
